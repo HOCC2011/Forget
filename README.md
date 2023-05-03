@@ -1,2 +1,2 @@
 # Forget
-a app that helps you to remember things
+An app that helps you to remember things
