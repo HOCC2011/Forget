@@ -11,13 +11,3 @@ Then,the app will open the second activity (activity_task) and display a draw ov
 
 Fig 2:
 ![Alt text](https://github.com/HOCC2011/Forget/blob/main/Screenshot_20231119-105203.png)
-
-Known issues:
-
-Solved on v8.2:[
-Nothing Luncher will crash when themed icons are enabled 
-Reason: Nothing Launcher seems like that it can't handle PNG as the resource of the themed icon.
-
-The task will disappear after minimizing the window by tapping the orange icon.]
-
-
