@@ -1,6 +1,10 @@
 # Forget
 An app that helps you to remember things
 
+# Download the app:
+Open the releases page and download the apk.
+Or download the zip file and open in Android Studio. 
+
 # How Forget works?
 Forget let's you input things you need to remember.You may enter details of your task in the second box (EditText). 
 
