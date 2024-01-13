@@ -1,5 +1,5 @@
 # Forget
-<img src="https://github.com/HOCC2011/Forget/blob/main/icon_forget.png" width="216" height="480" alt="home" align="left" />
+<img src="https://github.com/HOCC2011/Forget/blob/main/icon_forget.png" width="216" height="216" alt="home" align="left" />
 An app that helps you to remember things
 
 # Download the app:
