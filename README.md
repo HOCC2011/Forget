@@ -15,5 +15,6 @@ Then,the app will open the second activity (activity_task) and display a draw ov
 
 # Screenshots:
 <img src="https://github.com/HOCC2011/Forget/blob/main/homepage.png" width="216" height="480" alt="home" align="left" />
+<p></p>
 <img src="https://github.com/HOCC2011/Forget/blob/main/task.png" width="216" height="480" alt="home" align="left" />
 
