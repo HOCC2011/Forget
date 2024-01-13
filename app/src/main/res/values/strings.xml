@@ -1,0 +1,28 @@
+<resources>
+    <string name="app_name" translatable="false">Forget</string>
+    <string name="home_title">Home</string>
+    <string name="task_title">Task</string>
+    <string name="later">Do it later / close it temporary:</string>
+    <string name="resume">Resume</string>
+    <string name="about_title">About</string>
+    <string name="input">Things you need to remember</string>
+    <string name="size">Small window size</string>
+    <string name="list">List of tasks or items</string>
+    <string name="start">Start</string>
+    <string name="end">Finish!</string>
+    <string name="pkg">package name:</string>
+    <string name="permission">Press the button below to enable draw over other app to let the app work normally like the image above.</string>
+    <string name="open">Open Settings</string>
+    <string name="ver" translatable="false">10.2</string>
+    <string name="title_activity_window" translatable="false">Window</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label" translatable="false">First Fragment</string>
+    <string name="second_fragment_label" translatable="false">Second Fragment</string>
+    <string name="next" translatable="false">Next</string>
+    <string name="previous" translatable="false">Previous</string>
+    <string name="hello_first_fragment" translatable="false">Hello first fragment</string>
+    <string name="hello_second_fragment" translatable="false">Hello second fragment. Arg: %1$s</string>
+    <string name="chinese">Chinese</string>
+    <string name="english">English</string>
+    <string name="min" translatable="false">minute(s)</string>
+</resources>
