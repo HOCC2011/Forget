@@ -3,12 +3,15 @@
 An app that helps you to remember things
 
 # Download the app:
-Open the releases page and download the apk.
-Or download the zip file and open in Android Studio. 
+[<img src="https://github.com/Kunzisoft/Github-badge/raw/main/get-it-on-github.svg"
+    alt="Get it on F-Droid"
+    height="80">](https://github.com/HOCC20211/Forget/releases)
 
 # How Forget works?
 <img src="https://github.com/HOCC2011/Forget/blob/main/homepage.png" width="216" height="480" alt="home" align="right" />
 Forget let's you input things you need to remember.You may enter details of your task in the second box (EditText). 
+
+
 
 #
 <img src="https://github.com/HOCC2011/Forget/blob/main/task.png" width="216" height="480" alt="home" align="left" />
