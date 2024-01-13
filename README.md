@@ -5,7 +5,7 @@ An app that helps you to remember things
 # Download the app:
 [<img src="https://github.com/Kunzisoft/Github-badge/raw/main/get-it-on-github.svg"
     alt="Get it on F-Droid"
-    height="80">](https://github.com/HOCC20211/Forget/releases)
+    height="80">](https://github.com/HOCC2011/Forget/releases)
 
 # How Forget works?
 <img src="https://github.com/HOCC2011/Forget/blob/main/homepage.png" width="216" height="480" alt="home" align="right" />
