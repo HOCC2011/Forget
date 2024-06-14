@@ -8,7 +8,7 @@
         <item name="android:windowLightStatusBar">false</item>
         <item name="android:colorBackground">@color/orange_light</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
-        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@color/orange_light</item>
         <!-- Customize your theme here. -->
         <item name="android:windowLayoutInDisplayCutoutMode">
             shortEdges <!-- default, shortEdges, or never -->
@@ -21,6 +21,9 @@
     <style name="Theme.Forget.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+    </style>
+    <style name="CustomAlertDialog" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:windowBackground">@drawable/popup_background</item>
     </style>
     <style name="Theme.Forget.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
     <style name="Theme.Forget.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />

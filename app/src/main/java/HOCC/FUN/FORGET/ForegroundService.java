@@ -17,11 +17,8 @@ import androidx.core.app.NotificationCompat;
 public class ForegroundService extends Service {
 
     private Window window;
-
     private String task;
-    private String list;
     private int time;
-    private int size;
     int lan;
 
     CountDownTimer countDownTimer;
@@ -45,17 +42,15 @@ public class ForegroundService extends Service {
         // create an instance of Window class
         // and display the content on screen
         task=intent.getStringExtra("input_text");
-        list=intent.getStringExtra("list");
         lan=intent.getIntExtra("language",0);
         time = intent.getIntExtra("min" , 0);
-        size = intent.getIntExtra("size" , 0);
         // create the custom or default notification
         // based on the android version
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
             startMyOwnForeground();
         else
             startForeground(1, new Notification());
-        window=new Window(this, task , lan , size ,list);
+        window=new Window(this, task , lan);
         window.open();
         window.close();
         window.open();
