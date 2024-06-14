@@ -3,7 +3,7 @@ An app that helps you to remember things
 
 [<img src="https://github.com/HOCC2011/Forget/blob/master/Icon_download.svg"
     alt="Get it on Github"
-    height="80">](https://github.com/HOCC2011/Forget/releases)
+    height="45">](https://github.com/HOCC2011/Forget/releases)
 
 # How Forget works?
 Forget let's you input things you need to remember.It supports 4 ongoing tasks each time. 
