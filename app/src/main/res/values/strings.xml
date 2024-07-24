@@ -10,7 +10,7 @@
     <string name="stop">Do it later</string>
     <string name="open">Open settings</string>
     <string name="permission">Press the button below to enable draw over other app to let the app work normally like the image above.</string>
-    <string name="ver" translatable="false">2.0(2)</string>
+    <string name="ver" translatable="false">2.1.1(2)</string>
     <string name="title_activity_window" translatable="false">Window</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label" translatable="false">First Fragment</string>

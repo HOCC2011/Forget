@@ -2,21 +2,21 @@
     <!-- Base application theme. -->
     <style name="Theme.Forget" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/orange_light</item>
-        <item name="colorPrimaryDark">@color/orange_light</item>
-        <item name="colorAccent">@color/orange_light</item>
+        <item name="colorPrimary">@color/bg_color</item>
+        <item name="colorPrimaryDark">@color/bg_color</item>
+        <item name="colorAccent">@color/bg_color</item>
         <item name="android:windowLightStatusBar">false</item>
-        <item name="android:colorBackground">@color/orange_light</item>
+        <item name="android:colorBackground">@color/bg_color</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
-        <item name="android:navigationBarColor">@color/orange_light</item>
+        <item name="android:navigationBarColor">@color/bg_color</item>
         <!-- Customize your theme here. -->
         <item name="android:windowLayoutInDisplayCutoutMode">
             shortEdges <!-- default, shortEdges, or never -->
         </item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/orange_light</item>
-        <item name="colorSecondaryVariant">@color/orange_light</item>
-        <item name="colorOnSecondary">@color/orange_light</item>
+        <item name="colorSecondary">@color/bg_color</item>
+        <item name="colorSecondaryVariant">@color/bg_color</item>
+        <item name="colorOnSecondary">@color/bg_color</item>
     </style>
     <style name="Theme.Forget.NoActionBar">
         <item name="windowActionBar">false</item>

@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/bg_color"
     tools:context=".MainActivity">
 
     <View
@@ -30,7 +31,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/font"
         android:text="@string/home_title"
-        android:textColor="@color/white"
+        android:textColor="@color/fg_color"
         android:textSize="50dp"
         android:layout_marginBottom="16dp"
         app:layout_constraintBottom_toTopOf="@id/white_bar"
@@ -73,7 +74,7 @@
                         android:fontFamily="@font/font"
                         android:padding="16dp"
                         android:text="task_1"
-                        android:textColor="@color/orange_light"
+                        android:textColor="@color/on_fg_color"
                         android:textSize="20dp"
                         android:visibility="visible" />
 
@@ -86,7 +87,7 @@
                         android:padding="16dp"
                         android:text="task_2"
                         android:layout_marginTop="16dp"
-                        android:textColor="@color/orange_light"
+                        android:textColor="@color/on_fg_color"
                         android:textSize="20dp"
                         android:visibility="gone" />
 
@@ -99,7 +100,7 @@
                         android:padding="16dp"
                         android:text="task_3"
                         android:layout_marginTop="16dp"
-                        android:textColor="@color/orange_light"
+                        android:textColor="@color/on_fg_color"
                         android:textSize="20dp"
                         android:visibility="gone" />
 
@@ -112,7 +113,7 @@
                         android:padding="16dp"
                         android:text="task_4"
                         android:layout_marginTop="16dp"
-                        android:textColor="@color/orange_light"
+                        android:textColor="@color/on_fg_color"
                         android:textSize="20dp"
                         android:visibility="gone" />
 
@@ -125,7 +126,7 @@
                         android:padding="16dp"
                         android:text="@string/stop"
                         android:textAlignment="center"
-                        android:textColor="@color/orange_light"
+                        android:textColor="@color/on_fg_color"
                         android:textSize="20dp"
                         android:layout_marginTop="16dp"
                         android:visibility="visible" />
@@ -155,10 +156,10 @@
                 android:layout_marginStart="16dp"
                 android:hint="@string/input"
                 android:textSize="20dp"
-                android:textColor="@color/orange_light"
+                android:textColor="@color/on_fg_color"
                 android:background="@drawable/background"
                 android:fontFamily="@font/font"
-                android:textColorHint="@color/orange_light"
+                android:textColorHint="@color/on_fg_color"
                 android:singleLine="true" />
 
             <TextView
@@ -170,7 +171,7 @@
                 android:padding="16dp"
                 android:text="@string/start"
                 android:textAlignment="center"
-                android:textColor="@color/orange_light"
+                android:textColor="@color/on_fg_color"
                 android:textSize="20dp"
                 android:layout_marginTop="16dp"
                 android:visibility="visible"

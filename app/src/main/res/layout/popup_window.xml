@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:backgroundTint="@color/white"
+        android:backgroundTint="@color/win_bg_color"
         app:cardCornerRadius="50dp">
 
         <LinearLayout

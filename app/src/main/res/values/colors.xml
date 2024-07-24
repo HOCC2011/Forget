@@ -3,5 +3,11 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="orange_light">#FFB17B</color>
-    <color name="light_blue_600">#FF039BE5</color>
+    <color name="bg_color">#FFB17B</color>
+    <color name="fg_color">#FFFFFFFF</color>
+    <color name="dia_bg_color">#FFFFFFFF</color>
+    <color name="dia_fg_color">#FFB17B</color>
+    <color name="dia_on_fg_color">#FFFFFFFF</color>
+    <color name="on_fg_color">#FFB17B</color>
+    <color name="win_bg_color">#FFFFFFFF</color>
 </resources>

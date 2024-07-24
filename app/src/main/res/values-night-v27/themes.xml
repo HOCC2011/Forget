@@ -2,16 +2,16 @@
     <!-- Base application theme. -->
     <style name="Theme.Forget" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/orange_light</item>
-        <item name="colorPrimaryDark">@color/orange_light</item>
-        <item name="colorAccent">@color/orange_light</item>
-        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorPrimary">@color/bg_color</item>
+        <item name="colorPrimaryDark">@color/bg_color</item>
+        <item name="colorAccent">@color/bg_color</item>
+        <item name="colorOnPrimary">@color/bg_color</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/orange_light</item>
-        <item name="colorSecondaryVariant">@color/orange_light</item>
-        <item name="colorOnSecondary">@color/orange_light</item>
+        <item name="colorSecondary">@color/bg_color</item>
+        <item name="colorSecondaryVariant">@color/bg_color</item>
+        <item name="colorOnSecondary">@color/bg_color</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor">@color/orange_light</item>
+        <item name="android:statusBarColor">@color/bg_color</item>
         <!-- Customize your theme here. -->
     </style>
     <style name="CustomAlertDialog" parent="Theme.AppCompat.Light.Dialog.Alert">
