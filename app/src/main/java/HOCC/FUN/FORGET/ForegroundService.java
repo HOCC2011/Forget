@@ -6,12 +6,9 @@ import android.app.NotificationManager;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.os.CountDownTimer;
 import android.os.IBinder;
 import android.util.Log;
-
-import androidx.annotation.RequiresApi;
 import androidx.core.app.NotificationCompat;
 
 public class ForegroundService extends Service {
@@ -20,7 +17,6 @@ public class ForegroundService extends Service {
     private String task;
     private int time;
     int lan;
-
     CountDownTimer countDownTimer;
 
     public ForegroundService() {
@@ -34,7 +30,6 @@ public class ForegroundService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
-
     }
 
     @Override
@@ -46,10 +41,7 @@ public class ForegroundService extends Service {
         time = intent.getIntExtra("min" , 0);
         // create the custom or default notification
         // based on the android version
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
-            startMyOwnForeground();
-        else
-            startForeground(1, new Notification());
+        startMyOwnForeground();
         window=new Window(this, task , lan);
         window.open();
         window.close();
@@ -71,11 +63,16 @@ public class ForegroundService extends Service {
                     window.close();
                     window.open();
                     ForegroundService.this.time = 0;
+                    stopFinish();
                 }
             }.start();
         }
 
         return super.onStartCommand(intent, flags, startId);
+    }
+
+    public void stopFinish(){
+        this.getSharedPreferences("MY", MODE_PRIVATE).edit().putInt("isRunning", 1).apply();
     }
 
     @Override
@@ -91,7 +88,6 @@ public class ForegroundService extends Service {
     // for android version >=O we need to create
     // custom notification stating
     // foreground service is running
-    @RequiresApi(Build.VERSION_CODES.O)
     private void startMyOwnForeground()
     {
         String NOTIFICATION_CHANNEL_ID = "example.permanence";
