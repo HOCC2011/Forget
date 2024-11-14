@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.provider.Settings;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -40,7 +41,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         //check and request for permission
         if (!Settings.canDrawOverlays(this)) {
             // send user to the device settings
@@ -55,7 +55,6 @@ public class MainActivity extends AppCompatActivity {
         tasklist = findViewById(R.id.tasklist);
         //start the task activity
         start = findViewById(R.id.start);
-        task = findViewById(R.id.input);
         start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -65,8 +64,8 @@ public class MainActivity extends AppCompatActivity {
                 task.clearFocus();
             }
         });
-        //set edittext
-        task.setOnKeyListener(new View.OnKeyListener() {
+        task = findViewById(R.id.input);
+        task.setOnKeyListener(new View.OnKeyListener() {  //set edittext
             @Override
             public boolean onKey(View view, int keycode, KeyEvent keyEvent) {
                 if (keyEvent.getAction() == KeyEvent.ACTION_DOWN && keycode == KeyEvent.KEYCODE_ENTER){
