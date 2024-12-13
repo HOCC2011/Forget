@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.provider.Settings;
 import android.util.Log;
-import android.view.View;
 
 public class StartUpView extends AppCompatActivity {
 
@@ -27,6 +26,19 @@ public class StartUpView extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start_up_view);
         SharedPreferences pref=this.getSharedPreferences("MY", MODE_PRIVATE);
+        if (pref.getInt("task_num", 0) > 0){
+            //putting the string -- int back to local
+            started_text = (pref.getString("INPUT_TEXT", ""));
+            lan = pref.getInt("LANGUAGE", 0);
+            task_num = pref.getInt("task_num", 0);
+            Log.i("task_num", String.valueOf(task_num));
+            this.getSharedPreferences("MY", MODE_PRIVATE).edit().putInt("isRunning", 1).apply();
+            serviceIntent = new Intent(this.getApplicationContext(), ForegroundService.class);
+            serviceIntent.putExtra("input_text", started_text);
+            serviceIntent.putExtra("language", lan);
+            stopService();
+            startService();
+        } //check if any task is started
         if (pref.getInt("TASK", 0) == 1){
             //putting the string -- int back to local
             started_text = (pref.getString("INPUT_TEXT" , ""));
@@ -39,30 +51,14 @@ public class StartUpView extends AppCompatActivity {
             serviceIntent.putExtra("language", lan);
             stopService();
             startService();
-            new CountDownTimer(100, 100) {
-
-                public void onTick(long millisUntilFinished) {
-
-                }
-
-                public void onFinish() {
-                    finishAffinity();
-                }
-            }.start();
-
         } //check if any task is started
-        else{
-            new CountDownTimer(100, 100) {
-
-                public void onTick(long millisUntilFinished) {
-
-                }
-
-                public void onFinish() {
-                    finishAffinity();
-                }
-            }.start();
-        }
+        new CountDownTimer(100, 100) {
+            public void onTick(long millisUntilFinished) {
+            }
+            public void onFinish() {
+                finishAffinity();
+            }
+        }.start();
     }
 
     private boolean serviceStarted = false;
