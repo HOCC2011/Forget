@@ -35,6 +35,7 @@ public class ImportView extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_import_view);
+        intent = getIntent();
         callApp = intent.getStringExtra("callApp");
         task = intent.getStringExtra("task");
         import_text = getString(R.string.import_text);
