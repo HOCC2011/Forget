@@ -44,6 +44,8 @@ public class ImportView extends AppCompatActivity {
         import_button = findViewById(R.id.import_button);
         import_button.setOnClickListener(v -> {
             startTask();
+            Intent redirectToHome = new Intent(ImportView.this, MainActivity.class);
+            startActivity(redirectToHome);
         });
     }
     public void startTask() { //void to detect inputted words and start it
