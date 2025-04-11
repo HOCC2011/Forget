@@ -23,7 +23,7 @@
         <item name="windowNoTitle">true</item>
     </style>
     <style name="CustomAlertDialog" parent="Theme.AppCompat.Light.Dialog.Alert">
-        <item name="android:windowBackground">@drawable/popup_background</item>
+        <item name="android:windowBackground">@drawable/background</item>
     </style>
     <style name="Theme.Forget.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
     <style name="Theme.Forget.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />

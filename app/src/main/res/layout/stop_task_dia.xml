@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    android:padding="12dp"
+    android:orientation="vertical" >
+
+        <LinearLayout
+            android:id="@+id/tableRow1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="12dp"
+            android:layout_gravity="left"
+            android:gravity="center_vertical" >
+
+            <ImageView
+                android:layout_height="30dp"
+                android:layout_width="26dp"
+                android:layout_gravity="center"
+                app:srcCompat="@drawable/icon_small" />
+
+            <TextView
+                android:id="@+id/textView1"
+                android:layout_width="wrap_content"
+                android:layout_height="28dp"
+                android:gravity="center"
+                android:text="@string/stop_dia_title"
+                android:textSize="16dp"
+                android:layout_marginLeft="8dp"
+                android:fontFamily="@font/font"
+                android:textColor="@color/dia_fg_color"/>
+
+            <EditText
+                android:id="@+id/time"
+                android:layout_width="wrap_content"
+                android:layout_height="28dp"
+                app:layout_constraintTop_toBottomOf="@+id/taskcontain"
+                app:layout_constraintEnd_toEndOf="@id/white_bar"
+                app:layout_constraintStart_toStartOf="@id/white_bar"
+                android:layout_marginLeft="6dp"
+                android:hint="0"
+                android:textSize="16dp"
+                android:textColor="@color/on_fg_color"
+                android:background="@drawable/background"
+                android:fontFamily="@font/font"
+                android:textColorHint="@color/text_on_fg_color"
+                android:singleLine="true" />
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="28dp"
+                android:gravity="center"
+                android:text="@string/stop_dia_title_unit"
+                android:textSize="16dp"
+                android:layout_marginLeft="6dp"
+                android:fontFamily="@font/font"
+                android:textColor="@color/dia_fg_color"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:layout_marginBottom="16dp">
+
+            <TextView
+                android:id="@+id/cancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/background"
+                android:backgroundTint="@color/dia_fg_color"
+                android:fontFamily="@font/font"
+                android:padding="12dp"
+                android:text="@string/cancel"
+                android:textAlignment="center"
+                android:textColor="@color/dia_on_fg_color"
+                android:textSize="16dp"/>
+
+
+            <TextView
+                android:id="@+id/ok"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/background"
+                android:backgroundTint="@color/dia_fg_color"
+                android:fontFamily="@font/font"
+                android:padding="12dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="16dp"
+                android:text="@string/ok"
+                android:textAlignment="center"
+                android:textColor="@color/dia_on_fg_color"
+                android:textSize="16dp"/>
+        </LinearLayout>
+
+    </LinearLayout>

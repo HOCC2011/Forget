@@ -1,13 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="home_title">主頁</string>
-    <string name="diatitle">終止這項工作</string>
+    <string name="dia_title">"終止這項工作嗎？ "</string>
     <string name="input">在這裡輸入需要提醒你的事項</string>
     <string name="start">開始</string>
     <string name="end">終止</string>
-    <string name="task_title">工作</string>
-    <string name="permission">請使用下面的按鈕以允許此程式正常運作</string>
     <string name="cancel">取消</string>
     <string name="stop">稍後完成</string>
+    <string name="import_button">滙入</string>
     <string name="open">打開設定</string>
+    <string name="permission">請使用下面的按鈕以允許此程式正常運作</string>
+    <string name="ok">暫停</string>
+    <string name="stop_dia_title">暫停工作</string>
+    <string name="stop_dia_title_unit">分鐘</string>
+    <string name="import_text">"從 "</string>
+    <string name="import_text_end">" 滙入工作嗎？"</string>
 </resources>

@@ -23,9 +23,10 @@
 
             <ImageView
                 android:id="@+id/icon"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:src="@drawable/icon_window"
+                android:layout_height="30dp"
+                android:layout_width="26dp"
+                android:layout_marginLeft="2dp"
+                android:src="@drawable/icon_small"
                 tools:ignore="InvalidId" />
 
             <TextView
@@ -33,9 +34,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginLeft="16dp"
+                android:layout_marginLeft="6dp"
                 android:layout_marginRight="8dp"
-                android:fontFamily="@font/eng"
+                android:fontFamily="@font/font"
                 android:text="12345678901234567890"
                 android:textColor="@color/orange_light"
                 android:textSize="17dp" />

@@ -15,6 +15,6 @@
         <!-- Customize your theme here. -->
     </style>
     <style name="CustomAlertDialog" parent="Theme.AppCompat.Light.Dialog.Alert">
-        <item name="android:windowBackground">@drawable/popup_background</item>
+        <item name="android:windowBackground">@drawable/background</item>
     </style>
 </resources>

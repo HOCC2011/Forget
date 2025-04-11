@@ -29,33 +29,26 @@
         app:layout_constraintTop_toBottomOf="@+id/image"
         android:textSize="20dp"/>
 
-    <ImageView
-        android:id="@+id/button"
-        android:layout_width="160dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="8dp"
-        android:fontFamily="@font/font"
-        android:visibility="visible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/text"
-        app:srcCompat="@drawable/background" />
-
     <TextView
-        android:id="@+id/button_text"
-        android:layout_width="160dp"
-        android:layout_height="24dp"
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/background"
         android:fontFamily="@font/font"
+        android:padding="16dp"
         android:text="@string/open"
         android:textAlignment="center"
+        android:gravity="center_horizontal"
         android:textColor="@color/on_fg_color"
         android:textSize="20dp"
         android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="@id/button"
-        app:layout_constraintEnd_toEndOf="@id/button"
-        app:layout_constraintStart_toStartOf="@id/button"
-        app:layout_constraintTop_toTopOf="@id/button" />
+        android:layout_gravity="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/text"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

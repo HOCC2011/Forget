@@ -10,4 +10,5 @@
     <color name="fg_color">#FFB17B</color>
     <color name="on_fg_color">#FF000000</color>
     <color name="win_bg_color">#FF000000</color>
+    <color name="text_on_fg_color">#707070</color>
 </resources>
