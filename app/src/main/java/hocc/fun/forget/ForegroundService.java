@@ -13,9 +13,9 @@ import androidx.core.app.NotificationCompat;
 
 public class ForegroundService extends Service {
 
-    private Window window;
-    private String task;
-    private int time;
+    Window window;
+    String task;
+    int time;
     CountDownTimer countDownTimer;
 
     public ForegroundService() {

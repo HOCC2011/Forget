@@ -18,7 +18,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
-    //buttons
     TextView start;
     TextView stop;
     TextView task1;
@@ -117,36 +116,33 @@ public class MainActivity extends AppCompatActivity {
             serviceIntent.putExtra("min", 5 * 60 * 1000);
             startService();
         });
-        stop.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View view) {
-                final AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this,R.style.CustomAlertDialog);
-                ViewGroup viewGroup = findViewById(android.R.id.content);
-                View dialogView = LayoutInflater.from(view.getContext()).inflate(R.layout.stop_task_dia, viewGroup, false);
-                EditText time = dialogView.findViewById(R.id.time);
-                TextView ok =dialogView.findViewById(R.id.ok);
-                TextView cancel =dialogView.findViewById(R.id.cancel);
-                builder.setView(dialogView);
-                builder.setView(dialogView);
-                final AlertDialog alertDialog = builder.create();
-                ok.setOnClickListener(v -> {
-                    try {
-                        int stop_time = Integer.parseInt(time.getText().toString());
-                        alertDialog.dismiss();
-                        stopService();
-                        serviceIntent.putExtra("min", stop_time * 60 * 1000);
-                        startService();
-                    } catch(NumberFormatException nfe) {
-                        Log.d("Cannot turn string to int (stop_time)", nfe.toString());
-                        CharSequence text = "Please enter an integer.";
-                        Toast.makeText(MainActivity.this, text, Toast.LENGTH_SHORT).show();
+        stop.setOnLongClickListener(view -> {
+            final AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this,R.style.CustomAlertDialog);
+            ViewGroup viewGroup = findViewById(android.R.id.content);
+            View dialogView = LayoutInflater.from(view.getContext()).inflate(R.layout.stop_task_dia, viewGroup, false);
+            EditText time = dialogView.findViewById(R.id.time);
+            TextView ok =dialogView.findViewById(R.id.ok);
+            TextView cancel =dialogView.findViewById(R.id.cancel);
+            builder.setView(dialogView);
+            builder.setView(dialogView);
+            final AlertDialog alertDialog = builder.create();
+            ok.setOnClickListener(v -> {
+                try {
+                    int stop_time = Integer.parseInt(time.getText().toString());
+                    alertDialog.dismiss();
+                    stopService();
+                    serviceIntent.putExtra("min", stop_time * 60 * 1000);
+                    startService();
+                } catch(NumberFormatException nfe) {
+                    Log.d("Cannot turn string to int (stop_time)", nfe.toString());
+                    CharSequence text = "Please enter an integer.";
+                    Toast.makeText(MainActivity.this, text, Toast.LENGTH_SHORT).show();
 
-                    }
-                });
-                cancel.setOnClickListener(v -> alertDialog.dismiss());
-                alertDialog.show();
-                return false;
-            }
+                }
+            });
+            cancel.setOnClickListener(v -> alertDialog.dismiss());
+            alertDialog.show();
+            return false;
         });
     }
 
