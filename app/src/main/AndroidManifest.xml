@@ -29,7 +29,7 @@
             android:name=".ForegroundService"
             android:enabled="true"
             android:exported="true"
-            android:foregroundServiceType="mediaPlayback"></service>
+            android:foregroundServiceType="mediaPlayback" />
 
         <activity
             android:name=".MainActivity"
