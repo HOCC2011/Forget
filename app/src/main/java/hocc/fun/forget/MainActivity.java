@@ -176,14 +176,21 @@ public class MainActivity extends AppCompatActivity {
             tasklist.setVisibility(View.VISIBLE);
             TextView[] tasks = {task1, task2, task3, task4};
             tasks[task_num].setVisibility(View.VISIBLE);
-            tasks[task_num].setText(task.getText().toString());
-            if (task_num == 0) {
-                started_text = task.getText().toString();
+            String taskString;
+            if (task.getText().toString().endsWith(" ")) {
+                taskString = task.getText().toString().substring(0, task.getText().toString().length() - 1);
+                Log.d("tag", taskString);
             } else {
-                started_text = started_text + ", " + task.getText().toString();
+                taskString = task.getText().toString();
+            }
+            tasks[task_num].setText(taskString);
+            if (task_num == 0) {
+                started_text = taskString;
+            } else {
+                started_text = started_text + ", " + taskString;
             }
             task_num = task_num + 1;
-            this.getSharedPreferences("Forget", MODE_PRIVATE).edit().putString("task" + (task_num), task.getText().toString()).apply();
+            this.getSharedPreferences("Forget", MODE_PRIVATE).edit().putString("task" + (task_num), taskString).apply();
         }
         //restore state
         this.getSharedPreferences("Forget", MODE_PRIVATE).edit().putString("started_text", started_text).putInt("task_num", task_num).putInt("isRunning", isRunning).apply();
