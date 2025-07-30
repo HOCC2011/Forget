@@ -1,5 +1,7 @@
 package  hocc.fun.forget;
 
+import static android.content.Context.MODE_PRIVATE;
+
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -15,14 +17,13 @@ public class StartupReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         if (Intent.ACTION_BOOT_COMPLETED.equals(intent.getAction())) {
-            SharedPreferences pref = context.getSharedPreferences("Forget", Context.MODE_PRIVATE);
+            SharedPreferences pref = context.getSharedPreferences("Forget", MODE_PRIVATE);
             if (pref.getInt("task_num", 0) > 0) {
                 started_text = pref.getString("started_text", "");
-                if (pref.getInt("isRunning", 0) == 1) {
-                    serviceIntent = new Intent(context.getApplicationContext(), ForegroundService.class);
-                    serviceIntent.putExtra("started_text", started_text);
-                    startService(context);
-                }
+                serviceIntent = new Intent(context.getApplicationContext(), ForegroundService.class);
+                serviceIntent.putExtra("started_text", started_text);
+                startService(context);
+                pref.edit().putBoolean("taskPaused", false).apply();
             }
         }
     }
@@ -30,7 +31,9 @@ public class StartupReceiver extends BroadcastReceiver {
     public void startService(Context context) {
         if (!serviceStarted) {
             if (Settings.canDrawOverlays(context)) {
-                context.startForegroundService(serviceIntent);
+                Intent activityIntent = new Intent(context, PermissionRequest.class);
+                activityIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(activityIntent);
             }
             serviceStarted = true;
         }

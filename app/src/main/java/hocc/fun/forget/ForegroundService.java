@@ -33,9 +33,9 @@ public class ForegroundService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        startMyOwnForeground();
         task = intent.getStringExtra("started_text");
         time = intent.getIntExtra("min" , 0);
-        startMyOwnForeground();
         window=new Window(this, task);
         window.open();
         window.close();

@@ -11,6 +11,7 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -28,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
     LinearLayout tasklist;
     int task_num = 0;
     int ending_task = 0;
-    int isRunning = 0;
+    boolean taskPaused = false;
     String started_text;
     private Intent serviceIntent;
 
@@ -69,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
         });
         //restore task
         SharedPreferences pref=this.getSharedPreferences("Forget", MODE_PRIVATE);
-        if (pref.getInt("task_num", 0) > 0){
+        if (pref.getInt("task_num", 0) > 0){ //check if any task is started
             //putting the string -- int back to local
             started_text = (pref.getString("started_text", ""));
             task_num = pref.getInt("task_num", 0);
@@ -80,14 +81,13 @@ public class MainActivity extends AppCompatActivity {
                 tasks[i].setVisibility(View.VISIBLE);
                 tasks[i].setText(pref.getString("task" + (i + 1), ""));
             }
-            if (pref.getInt("isRunning", 0) == 1) {
-                //restore state (run)
+            if (pref.getBoolean("taskPaused", false) == false) {
                 serviceIntent = new Intent(this.getApplicationContext(), ForegroundService.class);
                 serviceIntent.putExtra("started_text", started_text);
                 stopService();
                 startService();
             }
-        } //check if any task is started
+        }
         //long press to end task
         task1.setOnLongClickListener(view -> {
             ending_task = 1;
@@ -115,6 +115,8 @@ public class MainActivity extends AppCompatActivity {
             stopService();
             serviceIntent.putExtra("min", 5 * 60 * 1000);
             startService();
+            taskPaused = true;
+            this.getSharedPreferences("Forget", MODE_PRIVATE).edit().putBoolean("taskPaused", taskPaused).apply();
         });
         stop.setOnLongClickListener(view -> {
             final AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this,R.style.CustomAlertDialog);
@@ -126,6 +128,7 @@ public class MainActivity extends AppCompatActivity {
             builder.setView(dialogView);
             builder.setView(dialogView);
             final AlertDialog alertDialog = builder.create();
+            alertDialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
             ok.setOnClickListener(v -> {
                 try {
                     int stop_time = Integer.parseInt(time.getText().toString());
@@ -133,6 +136,8 @@ public class MainActivity extends AppCompatActivity {
                     stopService();
                     serviceIntent.putExtra("min", stop_time * 60 * 1000);
                     startService();
+                    taskPaused = true;
+                    this.getSharedPreferences("Forget", MODE_PRIVATE).edit().putBoolean("taskPaused", taskPaused).apply();
                 } catch(NumberFormatException nfe) {
                     Log.d("Cannot turn string to int (stop_time)", nfe.toString());
                     CharSequence text = "Please enter an integer.";
@@ -166,8 +171,8 @@ public class MainActivity extends AppCompatActivity {
     public void startTask() { //void to detect inputted words and start it
         tasklist.setVisibility(View.VISIBLE);
         SharedPreferences pref=this.getSharedPreferences("Forget", MODE_PRIVATE);
+        taskPaused = false;
         task_num = pref.getInt("task_num" , 0);
-        isRunning = 1;
         //check how many task are ongoing on the same time
         if (task_num == 4) {
             CharSequence text = "Forget only supports 4 tasks at the same time.";
@@ -193,7 +198,7 @@ public class MainActivity extends AppCompatActivity {
             this.getSharedPreferences("Forget", MODE_PRIVATE).edit().putString("task" + (task_num), taskString).apply();
         }
         //restore state
-        this.getSharedPreferences("Forget", MODE_PRIVATE).edit().putString("started_text", started_text).putInt("task_num", task_num).putInt("isRunning", isRunning).apply();
+        this.getSharedPreferences("Forget", MODE_PRIVATE).edit().putString("started_text", started_text).putInt("task_num", task_num).putBoolean("taskPaused", taskPaused).apply();
         serviceIntent = new Intent(this.getApplicationContext(), ForegroundService.class);
         serviceIntent.putExtra("started_text", started_text);
         stopService();
@@ -223,13 +228,13 @@ public class MainActivity extends AppCompatActivity {
         serviceIntent.putExtra("started_text", started_text);
         if(task_num == 0){
             stopService();
-            isRunning = 0;
         }
         else {
             stopService();
             startService();
         }
-        this.getSharedPreferences("Forget", MODE_PRIVATE).edit().putInt("task_num", task_num).putInt("isRunning", isRunning) .putString("task1", task1.getText().toString()).putString("task2", task2.getText().toString()).putString("task3", task3.getText().toString()).putString("task4", task4.getText().toString()).putString("started_text", started_text).apply();
+        taskPaused = false;
+        this.getSharedPreferences("Forget", MODE_PRIVATE).edit().putInt("task_num", task_num).putString("task1", task1.getText().toString()).putString("task2", task2.getText().toString()).putString("task3", task3.getText().toString()).putString("task4", task4.getText().toString()).putString("started_text", started_text).putBoolean("taskPaused", taskPaused).apply();
     }
 
     private boolean serviceStarted = false;

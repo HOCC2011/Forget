@@ -19,16 +19,13 @@ public class Window {
     private WindowManager mWindowManager;
     private LayoutInflater layoutInflater;
     TextView textView;
-    int min;
     String text;
 
 
     @SuppressLint("InflateParams")
     public Window(Context context, String text){
-        this.text=text;
-        this.context=context;
-        this.min=0;
-        Log.d("a" , String.valueOf(min));
+        this.text = text;
+        this.context = context;
         mParams = new WindowManager.LayoutParams(
                 WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT,
                 WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY,

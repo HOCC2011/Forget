@@ -61,8 +61,8 @@ public class ImportView extends AppCompatActivity {
             task_num = task_num + 1;
             this.getSharedPreferences("Forget", MODE_PRIVATE).edit().putString("task" + (task_num), task).apply();
         }
-        //restore state
-        this.getSharedPreferences("Forget", MODE_PRIVATE).edit().putString("started_text", started_text).putInt("task_num", task_num).putInt("isRunning", isRunning).apply();
+        //save state
+        this.getSharedPreferences("Forget", MODE_PRIVATE).edit().putString("started_text", started_text).putInt("task_num", task_num).putBoolean("taskPaused", false).apply();
         serviceIntent = new Intent(this.getApplicationContext(), ForegroundService.class);
         serviceIntent.putExtra("started_text", started_text);
         stopService();
@@ -74,9 +74,10 @@ public class ImportView extends AppCompatActivity {
             stopService(serviceIntent);
             // check if the user has already granted
             // the Draw over other apps permission
-            if (Settings.canDrawOverlays(this)) {
-                // start the service based on the android version
-                startForegroundService(serviceIntent);
+            if (!Settings.canDrawOverlays(this)) {
+                // send user to the device settings
+                Intent myIntent = new Intent(ImportView.this, PermissionRequest.class);
+                startActivity(myIntent);
             }
             this.serviceStarted = true;
         }
