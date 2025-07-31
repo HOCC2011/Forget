@@ -86,6 +86,7 @@ public class MainActivity extends AppCompatActivity {
                 serviceIntent.putExtra("started_text", started_text);
                 stopService();
                 startService();
+                Log.d("Restore Task", "Task Started!");
             }
         }
         //long press to end task

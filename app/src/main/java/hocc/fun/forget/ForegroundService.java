@@ -38,7 +38,6 @@ public class ForegroundService extends Service {
         if (task == null) {task = "";}
         time = intent.getIntExtra("min" , 0);
         window=new Window(this, task);
-        window.open();
         window.close();
         window.open();
         if (this.countDownTimer != null) {
@@ -67,7 +66,7 @@ public class ForegroundService extends Service {
     }
 
     public void stopFinish(){
-        this.getSharedPreferences("MY", MODE_PRIVATE).edit().putInt("isRunning", 1).apply();
+        this.getSharedPreferences("Forget", MODE_PRIVATE).edit().putBoolean("taskPaused", false).apply();
     }
 
     @Override

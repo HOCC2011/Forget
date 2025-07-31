@@ -42,7 +42,7 @@
                 android:background="@drawable/background"
                 android:fontFamily="@font/font"
                 android:hint="0"
-                android:inputType="number"
+                android:inputType="numberDecimal|numberSigned"
                 android:singleLine="true"
                 android:textColor="@color/on_fg_color"
                 android:textColorHint="@color/text_on_fg_color"
