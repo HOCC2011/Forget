@@ -35,6 +35,7 @@ public class ForegroundService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
         startMyOwnForeground();
         task = intent.getStringExtra("started_text");
+        if (task == null) {task = "";}
         time = intent.getIntExtra("min" , 0);
         window=new Window(this, task);
         window.open();
