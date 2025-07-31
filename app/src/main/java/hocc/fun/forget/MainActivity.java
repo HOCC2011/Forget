@@ -114,6 +114,7 @@ public class MainActivity extends AppCompatActivity {
         stop.setOnClickListener(v -> {
             stopService();
             serviceIntent = new Intent(this.getApplicationContext(), ForegroundService.class);
+            serviceIntent.putExtra("started_text", started_text);
             serviceIntent.putExtra("min", 5 * 60 * 1000);
             startService();
             taskPaused = true;
@@ -136,6 +137,7 @@ public class MainActivity extends AppCompatActivity {
                     alertDialog.dismiss();
                     stopService();
                     serviceIntent = new Intent(this.getApplicationContext(), ForegroundService.class);
+                    serviceIntent.putExtra("started_text", started_text);
                     serviceIntent.putExtra("min", stop_time * 60 * 1000);
                     startService();
                     taskPaused = true;
