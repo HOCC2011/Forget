@@ -126,12 +126,33 @@ public class MainActivity extends AppCompatActivity {
             ViewGroup viewGroup = findViewById(android.R.id.content);
             View dialogView = LayoutInflater.from(view.getContext()).inflate(R.layout.stop_task_dia, viewGroup, false);
             EditText time = dialogView.findViewById(R.id.time);
-            TextView ok =dialogView.findViewById(R.id.ok);
-            TextView cancel =dialogView.findViewById(R.id.cancel);
+            TextView ok = dialogView.findViewById(R.id.ok);
+            TextView cancel = dialogView.findViewById(R.id.cancel);
             builder.setView(dialogView);
             builder.setView(dialogView);
             final AlertDialog alertDialog = builder.create();
             alertDialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+            time.setOnKeyListener((View keyView, int keycode, KeyEvent keyEvent) -> {
+                if (keyEvent.getAction() == KeyEvent.ACTION_DOWN && keycode == KeyEvent.KEYCODE_ENTER){
+                    try {
+                        int stop_time = Integer.parseInt(time.getText().toString());
+                        alertDialog.dismiss();
+                        stopService();
+                        serviceIntent = new Intent(this.getApplicationContext(), ForegroundService.class);
+                        serviceIntent.putExtra("started_text", started_text);
+                        serviceIntent.putExtra("min", stop_time * 60 * 1000);
+                        startService();
+                        taskPaused = true;
+                        this.getSharedPreferences("Forget", MODE_PRIVATE).edit().putBoolean("taskPaused", taskPaused).apply();
+                    } catch(NumberFormatException nfe) {
+                        Log.d("Cannot turn string to int (stop_time)", nfe.toString());
+                        CharSequence text = "Please enter an integer.";
+                        Toast.makeText(MainActivity.this, text, Toast.LENGTH_SHORT).show();
+
+                    }
+                }
+                return false;
+            });
             ok.setOnClickListener(v -> {
                 try {
                     int stop_time = Integer.parseInt(time.getText().toString());
@@ -147,7 +168,6 @@ public class MainActivity extends AppCompatActivity {
                     Log.d("Cannot turn string to int (stop_time)", nfe.toString());
                     CharSequence text = "Please enter an integer.";
                     Toast.makeText(MainActivity.this, text, Toast.LENGTH_SHORT).show();
-
                 }
             });
             cancel.setOnClickListener(v -> alertDialog.dismiss());
@@ -155,7 +175,6 @@ public class MainActivity extends AppCompatActivity {
             return false;
         });
     }
-
     public void EndDialog(View view){
         final AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this,R.style.CustomAlertDialog);
         ViewGroup viewGroup = findViewById(android.R.id.content);
@@ -210,7 +229,7 @@ public class MainActivity extends AppCompatActivity {
         startService();
         task.setText("");
     }
-    public void  endTask(){
+    public void endTask() {
         TextView[] tasks = {task1, task2, task3, task4};
         if (task_num == 1 && ending_task == 1) {
             tasklist.setVisibility(View.GONE);
