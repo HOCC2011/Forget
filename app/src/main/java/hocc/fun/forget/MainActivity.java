@@ -171,7 +171,7 @@ public class MainActivity extends AppCompatActivity {
             adapter = new TaskViewAdapter(TaskList, this::onItemLongClick);
             recyclerView.setLayoutManager(new LinearLayoutManager(this));
             recyclerView.setAdapter(adapter);
-            if (pref.getBoolean("taskPaused", false) == false) {
+            if (!pref.getBoolean("taskPaused", false)) {
                 serviceIntent = new Intent(this.getApplicationContext(), ForegroundService.class);
                 serviceIntent.putExtra("started_text", started_text);
                 stopService();
