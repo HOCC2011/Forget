@@ -53,97 +53,46 @@
             android:orientation="vertical">
 
             <LinearLayout
-                android:id="@+id/taskcontain"
+                android:id="@+id/tasklist"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp">
 
-                <LinearLayout
-                    android:id="@+id/tasklist"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:visibility="gone"
+                <androidx.recyclerview.widget.RecyclerView
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:id="@+id/TaskView"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:scrollbars="vertical" />
 
-                    <TextView
-                        android:id="@+id/task1"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/background"
-                        android:fontFamily="@font/font"
-                        android:padding="16dp"
-                        android:text="task_1"
-                        android:textColor="@color/on_fg_color"
-                        android:textSize="20dp"
-                        android:visibility="visible" />
+                <TextView
+                    android:id="@+id/stop"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/background"
+                    android:fontFamily="@font/font"
+                    android:padding="16dp"
+                    android:text="@string/stop"
+                    android:textAlignment="center"
+                    android:textColor="@color/on_fg_color"
+                    android:textSize="20dp"
+                    android:visibility="visible" />
 
-                    <TextView
-                        android:id="@+id/task2"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/background"
-                        android:fontFamily="@font/font"
-                        android:padding="16dp"
-                        android:text="task_2"
-                        android:layout_marginTop="16dp"
-                        android:textColor="@color/on_fg_color"
-                        android:textSize="20dp"
-                        android:visibility="gone" />
-
-                    <TextView
-                        android:id="@+id/task3"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/background"
-                        android:fontFamily="@font/font"
-                        android:padding="16dp"
-                        android:text="task_3"
-                        android:layout_marginTop="16dp"
-                        android:textColor="@color/on_fg_color"
-                        android:textSize="20dp"
-                        android:visibility="gone" />
-
-                    <TextView
-                        android:id="@+id/task4"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/background"
-                        android:fontFamily="@font/font"
-                        android:padding="16dp"
-                        android:text="task_4"
-                        android:layout_marginTop="16dp"
-                        android:textColor="@color/on_fg_color"
-                        android:textSize="20dp"
-                        android:visibility="gone" />
-
-                    <TextView
-                        android:id="@+id/stop"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/background"
-                        android:fontFamily="@font/font"
-                        android:padding="16dp"
-                        android:text="@string/stop"
-                        android:textAlignment="center"
-                        android:textColor="@color/on_fg_color"
-                        android:textSize="20dp"
-                        android:layout_marginTop="16dp"
-                        android:visibility="visible" />
-
-                    <ImageView
-                        android:id="@+id/white_bar_2"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:contentDescription="useless bar"
-                        android:visibility="visible"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginBottom="16dp"
-                        app:srcCompat="@drawable/line" />
-                </LinearLayout>
-
+                <ImageView
+                    android:id="@+id/white_bar_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="useless bar"
+                    android:visibility="visible"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp"
+                    app:srcCompat="@drawable/line" />
             </LinearLayout>
+
 
             <EditText
                 android:id="@+id/input"

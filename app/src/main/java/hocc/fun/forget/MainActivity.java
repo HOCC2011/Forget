@@ -2,6 +2,9 @@ package hocc.fun.forget;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -18,20 +21,23 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
     TextView start;
     TextView stop;
-    TextView task1;
-    TextView task2;
-    TextView task3;
-    TextView task4;
     EditText task;
-    LinearLayout tasklist;
     int task_num = 0;
     int ending_task = 0;
     boolean taskPaused = false;
     String started_text;
     private Intent serviceIntent;
+    RecyclerView recyclerView;
+    LinearLayout tasklist;
+    List<TaskItem> TaskList = new ArrayList<>();
+    TaskViewAdapter adapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,11 +50,12 @@ public class MainActivity extends AppCompatActivity {
             startActivity(myIntent);
         }
         //finding the view of the list for the ongoing task
-        task1 = findViewById(R.id.task1);
-        task2 = findViewById(R.id.task2);
-        task3 = findViewById(R.id.task3);
-        task4 = findViewById(R.id.task4);
+        TaskList.clear();
         tasklist = findViewById(R.id.tasklist);
+        recyclerView = findViewById(R.id.TaskView);
+        adapter = new TaskViewAdapter(TaskList, this::onItemLongClick);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(adapter);
         //start the task activity
         start = findViewById(R.id.start);
         start.setOnClickListener(v -> {
@@ -68,48 +75,7 @@ public class MainActivity extends AppCompatActivity {
             }
             return false;
         });
-        //restore task
-        SharedPreferences pref=this.getSharedPreferences("Forget", MODE_PRIVATE);
-        if (pref.getInt("task_num", 0) > 0){ //check if any task is started
-            //putting the string -- int back to local
-            started_text = (pref.getString("started_text", ""));
-            task_num = pref.getInt("task_num", 0);
-            tasklist.setVisibility(View.VISIBLE);
-            //check how much task is started and set visibility by the number of tasks
-            TextView[] tasks = {task1, task2, task3, task4};
-            for (int i = 0; i < task_num; i++) {
-                tasks[i].setVisibility(View.VISIBLE);
-                tasks[i].setText(pref.getString("task" + (i + 1), ""));
-            }
-            if (pref.getBoolean("taskPaused", false) == false) {
-                serviceIntent = new Intent(this.getApplicationContext(), ForegroundService.class);
-                serviceIntent.putExtra("started_text", started_text);
-                stopService();
-                startService();
-                Log.d("Restore Task", "Task Started!");
-            }
-        }
-        //long press to end task
-        task1.setOnLongClickListener(view -> {
-            ending_task = 1;
-            EndDialog(view);
-            return false;
-        });
-        task2.setOnLongClickListener(view -> {
-            ending_task = 2;
-            EndDialog(view);
-            return false;
-        });
-        task3.setOnLongClickListener(view -> {
-            ending_task = 3;
-            EndDialog(view);
-            return false;
-        });
-        task4.setOnLongClickListener(view -> {
-            ending_task = 4;
-            EndDialog(view);
-            return false;
-        });
+        restoreTasks();
         //stop for 5min
         stop = findViewById(R.id.stop);
         stop.setOnClickListener(v -> {
@@ -175,7 +141,7 @@ public class MainActivity extends AppCompatActivity {
             return false;
         });
     }
-    public void EndDialog(View view){
+    public void endDialog(View view){
         final AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this,R.style.CustomAlertDialog);
         ViewGroup viewGroup = findViewById(android.R.id.content);
         View dialogView = LayoutInflater.from(view.getContext()).inflate(R.layout.end_task_dia, viewGroup, false);
@@ -191,7 +157,31 @@ public class MainActivity extends AppCompatActivity {
         cancel.setOnClickListener(v -> alertDialog.dismiss());
         alertDialog.show();
     }
-
+    public void restoreTasks() {
+        //restore task
+        SharedPreferences pref=this.getSharedPreferences("Forget", MODE_PRIVATE);
+        if (pref.getInt("task_num", 0) > 0){ //check if any task is started
+            //putting the string -- int back to local
+            started_text = (pref.getString("started_text", ""));
+            task_num = pref.getInt("task_num", 0);
+            tasklist.setVisibility(View.VISIBLE);
+            //check how much task is started and set visibility by the number of tasks
+            for (int i = 0; i < task_num; i++) {
+                TaskList.add(new TaskItem(pref.getString("task" + (i + 1), "")));
+            }
+            recyclerView = findViewById(R.id.TaskView);
+            adapter = new TaskViewAdapter(TaskList, this::onItemLongClick);
+            recyclerView.setLayoutManager(new LinearLayoutManager(this));
+            recyclerView.setAdapter(adapter);
+            if (pref.getBoolean("taskPaused", false) == false) {
+                serviceIntent = new Intent(this.getApplicationContext(), ForegroundService.class);
+                serviceIntent.putExtra("started_text", started_text);
+                stopService();
+                startService();
+                Log.d("Restore Task", "Task Started!");
+            }
+        }
+    }
     public void startTask() { //void to detect inputted words and start it
         tasklist.setVisibility(View.VISIBLE);
         SharedPreferences pref=this.getSharedPreferences("Forget", MODE_PRIVATE);
@@ -202,9 +192,6 @@ public class MainActivity extends AppCompatActivity {
             CharSequence text = "Forget only supports 4 tasks at the same time.";
             Toast.makeText(MainActivity.this, text, Toast.LENGTH_SHORT).show();
         } else {
-            tasklist.setVisibility(View.VISIBLE);
-            TextView[] tasks = {task1, task2, task3, task4};
-            tasks[task_num].setVisibility(View.VISIBLE);
             String taskString;
             if (task.getText().toString().endsWith(" ")) {
                 taskString = task.getText().toString().substring(0, task.getText().toString().length() - 1);
@@ -212,7 +199,11 @@ public class MainActivity extends AppCompatActivity {
             } else {
                 taskString = task.getText().toString();
             }
-            tasks[task_num].setText(taskString);
+            TaskList.add(new TaskItem(taskString));
+            recyclerView = findViewById(R.id.TaskView);
+            adapter = new TaskViewAdapter(TaskList, this::onItemLongClick);
+            recyclerView.setLayoutManager(new LinearLayoutManager(this));
+            recyclerView.setAdapter(adapter);
             if (task_num == 0) {
                 started_text = taskString;
             } else {
@@ -221,7 +212,6 @@ public class MainActivity extends AppCompatActivity {
             task_num = task_num + 1;
             this.getSharedPreferences("Forget", MODE_PRIVATE).edit().putString("task" + (task_num), taskString).apply();
         }
-        //restore state
         this.getSharedPreferences("Forget", MODE_PRIVATE).edit().putString("started_text", started_text).putInt("task_num", task_num).putBoolean("taskPaused", taskPaused).apply();
         serviceIntent = new Intent(this.getApplicationContext(), ForegroundService.class);
         serviceIntent.putExtra("started_text", started_text);
@@ -230,21 +220,27 @@ public class MainActivity extends AppCompatActivity {
         task.setText("");
     }
     public void endTask() {
-        TextView[] tasks = {task1, task2, task3, task4};
         if (task_num == 1 && ending_task == 1) {
             tasklist.setVisibility(View.GONE);
+            TaskList.clear();
             task_num = 0;
         } else {
-            for (int i = ending_task - 1; i < task_num - 1; i++) {
-                tasks[i].setText(tasks[i + 1].getText().toString());
+            TaskList.remove(ending_task - 1);
+            recyclerView = findViewById(R.id.TaskView);
+            adapter = new TaskViewAdapter(TaskList, this::onItemLongClick);
+            recyclerView.setLayoutManager(new LinearLayoutManager(this));
+            recyclerView.setAdapter(adapter);
+            for (int i = ending_task; i < task_num; i++) {
+                SharedPreferences pref=this.getSharedPreferences("Forget", MODE_PRIVATE);
+                this.getSharedPreferences("Forget", MODE_PRIVATE).edit().putString("task" + (i), pref.getString("task" + (i+1), "")).apply();
             }
-            tasks[task_num - 1].setVisibility(View.GONE);
             task_num = task_num - 1;
             // Update the started_text based on the remaining visible tasks
             StringBuilder sb = new StringBuilder();
             for (int i = 0; i < task_num; i++) {
                 if (i > 0) sb.append(", ");
-                sb.append(tasks[i].getText().toString());
+                SharedPreferences pref=this.getSharedPreferences("Forget", MODE_PRIVATE);
+                sb.append(pref.getString("task" + (i+1), ""));
             }
             started_text = sb.toString();
         }
@@ -258,9 +254,18 @@ public class MainActivity extends AppCompatActivity {
             startService();
         }
         taskPaused = false;
-        this.getSharedPreferences("Forget", MODE_PRIVATE).edit().putInt("task_num", task_num).putString("task1", task1.getText().toString()).putString("task2", task2.getText().toString()).putString("task3", task3.getText().toString()).putString("task4", task4.getText().toString()).putString("started_text", started_text).putBoolean("taskPaused", taskPaused).apply();
+        this.getSharedPreferences("Forget", MODE_PRIVATE).edit()
+                .putInt("task_num", task_num)
+                .putString("started_text", started_text)
+                .putBoolean("taskPaused", taskPaused)
+                .apply();
     }
-
+    public boolean onItemLongClick(View view, TaskItem item, int position) {
+        //Toast.makeText(this, "Clicked: " + item.getTaskString() + ", item Number: " + position , Toast.LENGTH_SHORT).show();
+        ending_task = position + 1;
+        endDialog(view);
+        return true;
+    }
     private boolean serviceStarted = false;
     public void startService() { // method for starting the service
         if (!this.serviceStarted) {
