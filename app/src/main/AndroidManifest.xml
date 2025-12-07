@@ -21,6 +21,7 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="com.example.ACTION_SEND_DATA" />
+                <action android:name="hocc.fun.forget.ACTION_SEND_DATA" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
