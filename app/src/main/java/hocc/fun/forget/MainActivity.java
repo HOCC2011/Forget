@@ -4,6 +4,13 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.work.Data;
+import androidx.work.ExistingPeriodicWorkPolicy;
+import androidx.work.OneTimeWorkRequest;
+import androidx.work.PeriodicWorkRequest;
+import androidx.work.WorkManager;
+import androidx.work.WorkRequest;
+
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -20,7 +27,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends AppCompatActivity {
     TextView start;
@@ -78,10 +87,11 @@ public class MainActivity extends AppCompatActivity {
         stop = findViewById(R.id.stop);
         stop.setOnClickListener(v -> {
             stopService();
-            serviceIntent = new Intent(this.getApplicationContext(), ForegroundService.class);
-            serviceIntent.putExtra("started_text", started_text);
-            serviceIntent.putExtra("min", 5 * 60 * 1000);
-            startService();
+            //serviceIntent = new Intent(this.getApplicationContext(), ForegroundService.class);
+            //serviceIntent.putExtra("started_text", started_text);
+            //serviceIntent.putExtra("min", 5 * 60 * 1000);
+            scheduleTaskResuming(5 * 60 * 1000);
+            //startService();
             taskPaused = true;
             this.getSharedPreferences("Forget", MODE_PRIVATE).edit().putBoolean("taskPaused", taskPaused).apply();
         });
@@ -102,10 +112,11 @@ public class MainActivity extends AppCompatActivity {
                         int stop_time = Integer.parseInt(time.getText().toString());
                         alertDialog.dismiss();
                         stopService();
-                        serviceIntent = new Intent(this.getApplicationContext(), ForegroundService.class);
-                        serviceIntent.putExtra("started_text", started_text);
-                        serviceIntent.putExtra("min", stop_time * 60 * 1000);
-                        startService();
+                        //serviceIntent = new Intent(this.getApplicationContext(), ForegroundService.class);
+                        //serviceIntent.putExtra("started_text", started_text);
+                        //serviceIntent.putExtra("min", stop_time * 60 * 1000);
+                        scheduleTaskResuming(stop_time * 60 * 1000);
+                        //startService();
                         taskPaused = true;
                         this.getSharedPreferences("Forget", MODE_PRIVATE).edit().putBoolean("taskPaused", taskPaused).apply();
                     } catch(NumberFormatException nfe) {
@@ -122,10 +133,11 @@ public class MainActivity extends AppCompatActivity {
                     int stop_time = Integer.parseInt(time.getText().toString());
                     alertDialog.dismiss();
                     stopService();
-                    serviceIntent = new Intent(this.getApplicationContext(), ForegroundService.class);
-                    serviceIntent.putExtra("started_text", started_text);
-                    serviceIntent.putExtra("min", stop_time * 60 * 1000);
-                    startService();
+                    //serviceIntent = new Intent(this.getApplicationContext(), ForegroundService.class);
+                    //serviceIntent.putExtra("started_text", started_text);
+                    //serviceIntent.putExtra("min", stop_time * 60 * 1000);
+                    scheduleTaskResuming(stop_time * 60 * 1000);
+                    //startService();
                     taskPaused = true;
                     this.getSharedPreferences("Forget", MODE_PRIVATE).edit().putBoolean("taskPaused", taskPaused).apply();
                 } catch(NumberFormatException nfe) {
@@ -154,6 +166,13 @@ public class MainActivity extends AppCompatActivity {
         });
         cancel.setOnClickListener(v -> alertDialog.dismiss());
         alertDialog.show();
+    }
+    private void scheduleTaskResuming(int timeMS) {
+        WorkRequest resumeTaskRequest =
+                new OneTimeWorkRequest.Builder(ResumeTaskWorker.class)
+                        .setInitialDelay(timeMS, TimeUnit.MILLISECONDS)
+                        .build();
+        WorkManager.getInstance(this).enqueue(resumeTaskRequest);
     }
     public void restoreTasks() {
         //restore task
@@ -246,6 +265,7 @@ public class MainActivity extends AppCompatActivity {
         serviceIntent.putExtra("started_text", started_text);
         if(task_num == 0){
             stopService();
+            WorkManager.getInstance(this).cancelAllWork();
         }
         else {
             stopService();

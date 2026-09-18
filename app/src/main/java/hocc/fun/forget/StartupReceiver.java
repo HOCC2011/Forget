@@ -30,8 +30,12 @@ public class StartupReceiver extends BroadcastReceiver {
 
     public void startService(Context context) {
         if (!serviceStarted) {
-            if (Settings.canDrawOverlays(context)) {
+            if (!Settings.canDrawOverlays(context)) {
                 Intent activityIntent = new Intent(context, PermissionRequest.class);
+                activityIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(activityIntent);
+            } else {
+                Intent activityIntent = new Intent(context, MainActivity.class);
                 activityIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(activityIntent);
             }
