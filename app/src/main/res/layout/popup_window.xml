@@ -17,7 +17,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="16dp">
+            android:padding="20dp">
 
            <ImageView
                android:id="@+id/icon"
